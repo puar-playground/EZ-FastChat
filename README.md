@@ -8,5 +8,5 @@ pip install -r requirements.txt
 ```
 
 ```
-pip3 install "fschat[model_worker,webui]"
+pip install "fschat[model_worker,webui]"
 ```
