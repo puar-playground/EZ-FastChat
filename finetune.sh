@@ -1,15 +1,15 @@
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 --master_port=20003 fastchat/train/train.py \
     --model_name_or_path lmsys/vicuna-7b-v1.5  \
-    --data_path data/sg_train.json \
+    --data_path data/sg_val.json \
     --bf16 True \
-    --output_dir coco_sg \
+    --output_dir coco_sg_val \
     --num_train_epochs 6 \
     --per_device_train_batch_size 2 \
     --per_device_eval_batch_size 2 \
     --gradient_accumulation_steps 32 \
     --evaluation_strategy "no" \
     --save_strategy "steps" \
-    --save_steps 30 \
+    --save_steps 20 \
     --save_total_limit 5 \
     --learning_rate 2e-5 \
     --weight_decay 0. \
