@@ -6,9 +6,6 @@ conda create -n EZFastChat python=3.9
 conda activate EZFastChat
 pip install -r requirements.txt
 pip install torch torchvision torchaudio
-```
-
-```
 cd fastchat
 pip install "fschat[model_worker,webui]"
 ```
