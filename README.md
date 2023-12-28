@@ -43,7 +43,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 --master_port=20003 fas
     --gradient_checkpointing True \
     --lazy_preprocess True
 ```
-We use `fastchat/train/train.py` instead of `fastchat/train/train_mem.py` to avoid an unresolved bug in saving checkpoints, caused by the [Flash-Attention](https://github.com/Dao-AILab/flash-attention). 
+We use `fastchat/train/train.py` instead of `fastchat/train/train_mem.py` to avoid an bug in saving checkpoints, which is caused by the [Flash-Attention](https://github.com/Dao-AILab/flash-attention). 
 
 The script will do model parallel on 4 GPUs, thus use less number of GPUs will result in increased per-device memory cost. The above setting will results in ~45GB per-device memory cost. Each GPU will have a batch size of 2. The gradient will be accumulated for 32 steps before parameter update. checkpoints will be saved after every 50 updates. And only the most recent 5 checkpoints are retained to save disk storage. 
 
