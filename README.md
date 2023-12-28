@@ -17,4 +17,4 @@ Please install the cuDNN following its [installation guide](https://docs.nvidia.
 
 
 ## 2. Data
-Refer to the guide: [https://github.com/puar-playground/EZ-FastChat/tree/main/data](https://github.com/puar-playground/EZ-FastChat/tree/main/data)
+Refer to the [guide](https://github.com/puar-playground/EZ-FastChat/tree/main/data).
