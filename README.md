@@ -16,3 +16,35 @@ Please install the cuDNN following its [installation guide](https://docs.nvidia.
 
 ## 2. Data
 Refer to the [guide](https://github.com/puar-playground/EZ-FastChat/tree/main/data).
+
+
+## Finetune LLM
+Run the `finetune.sh` script:
+```
+CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 --master_port=20003 fastchat/train/train.py \
+    --model_name_or_path lmsys/vicuna-7b-v1.5  \
+    --data_path data/finetune/sg_val.json \
+    --bf16 True \
+    --output_dir experiment_result \
+    --num_train_epochs 6 \
+    --per_device_train_batch_size 2 \
+    --per_device_eval_batch_size 2 \
+    --gradient_accumulation_steps 32 \
+    --evaluation_strategy "no" \
+    --save_strategy "steps" \
+    --save_steps 50 \
+    --save_total_limit 5 \
+    --learning_rate 2e-5 \
+    --weight_decay 0. \
+    --warmup_ratio 0.03 \
+    --lr_scheduler_type "cosine" \
+    --logging_steps 1 \
+    --fsdp "full_shard auto_wrap" \
+    --fsdp_transformer_layer_cls_to_wrap 'LlamaDecoderLayer' \
+    --tf32 True \
+    --model_max_length 2048 \
+    --gradient_checkpointing True \
+    --lazy_preprocess True
+```
+The script will do model parallel on 4 GPUs, thus use less number of gpus will result in increased per device memory usage. The above setting will results in ~45GB per device memory usage. Each gpu will have a batch size of 2. The gradient will be accumulated for 32 steps before parameter update. checkpoints will be saved after every 50 gradient step. And only the most recent 5 checkpoints are retained to save disk storage. 
+
