@@ -19,7 +19,7 @@ If needed, install the cuDNN following its [installation guide](https://docs.nvi
 Refer to the [guide](https://github.com/puar-playground/EZ-FastChat/tree/main/data).
 
 
-## Finetune LLM
+## 3. Finetune LLM
 Run the `finetune.sh` script:
 ```
 CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 --master_port=20003 fastchat/train/train.py \
