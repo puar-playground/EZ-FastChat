@@ -14,7 +14,7 @@ fully-connected.
 """
 
 
-VG_DIR = '/data/jian/Visual_Genome'
+VG_DIR = '/data/Visual_Genome'
 
 parser = argparse.ArgumentParser()
 
