@@ -7,7 +7,7 @@ pip install gdown
 gdown "https://drive.google.com/uc?id=17s3VEarlsA6LXZ8I-UJIQ4aQUN1Rr8JD"
 ```
 
-### download from source
+### Alternatively, download from source
 ```
 chmod +x download_coco.sh
 ./download_coco.sh
@@ -21,7 +21,7 @@ Simply unzip the `vg_lite.zip` file
 unzip vg_lite.zip
 ```
 
-### download from source
+### Alternatively, download from source
 ```
 chmod +x download_vg.sh
 ./download_vg.sh
