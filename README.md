@@ -11,8 +11,8 @@ cd fastchat
 pip install "fschat[model_worker,webui]"
 ```
 Newer version of cuda might be required:
-[cuda12.2](https://developer.nvidia.com/cuda-12-2-0-download-archive) and [cuDNN](https://developer.nvidia.com/rdp/cudnn-download) is required. 
-Please install the cuDNN following its [installation guide](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#install-linux)
+[cuda12.2](https://developer.nvidia.com/cuda-12-2-0-download-archive) and [cuDNN](https://developer.nvidia.com/rdp/cudnn-download). 
+If needed, install the cuDNN following its [installation guide](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html#install-linux)
 
 
 ## 2. Data
