@@ -1,9 +1,19 @@
 # Data preprocess
 
-## 1. Download COCO-stuff
+## 1. COCO-stuff
 ```
 chmod +x download_coco.sh
 ./download_coco.sh
 ```
 
 
+## 2. Visual Genome
+```
+chmod +x download_vg.sh
+./download_vg.sh
+```
+After downloading the Visual Genome dataset, use the python script `preprocess_vg.py` to pre-process the dataset and create the standard dataset splits: 25,000 for training,
+1,024 for validation, and 2,048 for test.
+```
+python preprocess_vg.py
+```
