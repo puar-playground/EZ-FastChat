@@ -1,6 +1,6 @@
 # EZ-FastChat
 
-## 1. create conda environment
+## 1. Installation
 ```
 conda create -n EZFastChat python=3.9
 conda activate EZFastChat
