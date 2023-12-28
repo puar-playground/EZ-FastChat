@@ -13,8 +13,8 @@ from utils.LLM_utils import *
 if __name__ == "__main__":
 
     split = 'train'
-    coco_dataset = CocoSceneGraphDataset(instances_json=f'./datasets/coco_stuff/annotations/instances_{split}2017.json',
-                                         caption_json=f'./datasets/coco_stuff/annotations/captions_{split}2017.json')
+    coco_dataset = CocoSceneGraphDataset(instances_json=f'./data/coco_stuff/instances_{split}2017.json',
+                                         caption_json=f'./data/coco_stuff/captions_{split}2017.json')
 
     cap2box = []
     cap2sg = []
@@ -39,5 +39,5 @@ if __name__ == "__main__":
         cap2box.append(prompt_bbox)
 
     print(len(cap2sg))
-    json.dump(cap2sg, open(f'./datasets/vicuna/sg_{split}.json', 'w'), indent=4)
-    json.dump(cap2box, open(f'./datasets/vicuna/box_{split}.json', 'w'), indent=4)
+    json.dump(cap2sg, open(f'./data/finetune/sg_{split}.json', 'w'), indent=4)
+    json.dump(cap2box, open(f'./data/finetune/box_{split}.json', 'w'), indent=4)
