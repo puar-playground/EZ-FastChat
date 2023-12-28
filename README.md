@@ -1,4 +1,5 @@
 # EZ-FastChat
+This is a study note on finetunning LLM using [FastChat](https://github.com/lm-sys/FastChat).
 
 ## 1. Installation
 ```
@@ -46,5 +47,7 @@ CUDA_VISIBLE_DEVICES=0,1,2,3 torchrun --nproc_per_node=4 --master_port=20003 fas
     --gradient_checkpointing True \
     --lazy_preprocess True
 ```
+We use `fastchat/train/train.py` instead of `fastchat/train/train_mem.py` to avoid an unresolved bug in saving checkpoints, caused by the [Flash-Attention](https://github.com/Dao-AILab/flash-attention). 
+
 The script will do model parallel on 4 GPUs, thus use less number of gpus will result in increased per device memory usage. The above setting will results in ~45GB per device memory usage. Each gpu will have a batch size of 2. The gradient will be accumulated for 32 steps before parameter update. checkpoints will be saved after every 50 gradient step. And only the most recent 5 checkpoints are retained to save disk storage. 
 
