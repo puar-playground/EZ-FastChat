@@ -11,3 +11,6 @@ pip3 install torch torchvision torchaudio
 ```
 pip3 install "fschat[model_worker,webui]"
 ```
+
+
+[cuda12.2](https://developer.nvidia.com/cuda-12-2-0-download-archive) and [cuDNN](https://developer.nvidia.com/rdp/cudnn-download) is required. 
