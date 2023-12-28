@@ -10,6 +10,12 @@ standard dataset splits: 25,000 for training, 1,024 for validation, and 2,048 fo
 
 
 ## 2. Visual Genome
+Simply unzip the `vg_lite.zip` file
+```
+unzip vg_lite.zip
+```
+
+### Or 
 Download from the Visual Genome dataset
 ```
 chmod +x download_vg.sh
