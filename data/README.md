@@ -10,7 +10,8 @@ standard dataset splits: 25,000 for training, 1,024 for validation, and 2,048 fo
 
 Only the `captions_train2017.json`, `captions_val2017.json`, `instances_train2017.json`, `instances_val2017.json` files are required to attract the object scene-graph. We also provide them here:
 ```
-gdown 
+pip install gdown
+gdown "https://drive.google.com/uc?id=17s3VEarlsA6LXZ8I-UJIQ4aQUN1Rr8JD"
 ```
 
 
