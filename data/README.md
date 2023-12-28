@@ -2,5 +2,8 @@
 
 ## 1. Download COCO-stuff
 ```
-bash scripts/download_coco.sh
+chmod +x download_coco.sh
+./download_coco.sh
 ```
+
+
