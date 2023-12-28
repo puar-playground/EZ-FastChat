@@ -8,6 +8,11 @@ chmod +x download_coco.sh
 ```
 standard dataset splits: 25,000 for training, 1,024 for validation, and 2,048 for test.
 
+Only the `captions_train2017.json`, `captions_val2017.json`, `instances_train2017.json`, `instances_val2017.json` files are required to attract the object scene-graph. We also provide them here:
+```
+gdown 
+```
+
 
 ## 2. Visual Genome
 Simply unzip the `vg_lite.zip` file
