@@ -1,4 +1,4 @@
-VG_DIR=/data/jian/Visual_Genome
+VG_DIR=/data/Visual_Genome
 mkdir -p $VG_DIR
 
 wget https://visualgenome.org/static/data/dataset/objects.json.zip -O $VG_DIR/objects.json.zip
