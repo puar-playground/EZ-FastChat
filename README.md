@@ -1,5 +1,5 @@
 # EZ-FastChat
-This is a study note on finetunning LLM using [FastChat](https://github.com/lm-sys/FastChat).
+This is a study note on finetunning LLM using [FastChat](https://github.com/lm-sys/FastChat). We disabled `Flash-Attention` to avoid a bug in saving checkpoints.
 
 ## 1. Installation
 ```
