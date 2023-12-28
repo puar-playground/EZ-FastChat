@@ -60,6 +60,6 @@ class VisionGenome(Dataset):
 
 if __name__ == "__main__":
 
-    vg_dataset = VisionGenome(split='test', data_path='./datasets/vg')
+    vg_dataset = VisionGenome(split='test', data_path='./data/vg_lite')
     print(vg_dataset[10])
     vg_dataset.show(10, save_dir='./plot')
