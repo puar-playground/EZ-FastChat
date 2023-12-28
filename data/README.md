@@ -8,6 +8,7 @@ chmod +x download_coco.sh
 
 
 ## 2. Visual Genome
+Download from the Visual Genome dataset
 ```
 chmod +x download_vg.sh
 ./download_vg.sh
