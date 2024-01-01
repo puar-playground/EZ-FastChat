@@ -47,5 +47,12 @@ We use `fastchat/train/train.py` instead of `fastchat/train/train_mem.py` to avo
 
 The script will do model parallel on 4 GPUs, thus use less number of GPUs will result in increased per-device memory cost. The above setting will results in ~45GB per-device memory cost. Each GPU will have a batch size of 2. The gradient will be accumulated for 32 steps before parameter update. checkpoints will be saved after every 50 updates. And only the most recent 5 checkpoints are retained to save disk storage. 
 
-## 3. Data
+## 3. Inference
+```
+python3 -m fastchat.serve.cli --model-path /dir/to/checkpoint
+```
+
+## 4. Data
 Refer to the [guide](https://github.com/puar-playground/EZ-FastChat/tree/main/data).
+
+
