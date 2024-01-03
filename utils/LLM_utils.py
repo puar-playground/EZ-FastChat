@@ -5,7 +5,7 @@ def sg_string(triples):
     s = ''
     for (h, r, t) in triples:
         s += f'({h}, {r}, {t})\n'
-    return s
+    return 'scene graph: ' + s
 
 def system_prompt_sg(caption):
     system_prompt_sg = (f'Given a caption of an image, imagine a scene graph for the image. '
@@ -36,7 +36,7 @@ def bbox_string(entity, bbox):
     s = ''
     for e, b in zip(entity, bbox):
         s += f'{e} ({b[0]}, {b[1]}, {b[2]}, {b[3]})\n'
-    return s
+    return 'Layout: ' + s
 
 
 def system_prompt_bbox(caption, size):
@@ -66,7 +66,39 @@ def bbox_instance(id, caption, entity, bbox, size):
 
     return instance
 
+def system_prompt_sg2bbox():
 
+    system_prompt_sg2box = (f'A scene graph consists of a series of triples, such as (object-1, relation, object-2), '
+                            f'that describe the visual relationships between objects in an image. '
+                            f'For a given scene graph, plan the layout of the visual objects accordingly. '
+                            f'For each object, determine its bounding box coordinates in the format (left, top, right, bottom). '
+                            f'Considering the image size is 128 x 128, '
+                            f'ensure that all coordinates of a bounding box do not exceed 128. '
+                            f'Let us begin. ')
+
+    return system_prompt_sg2box
+
+def entity_string(entity):
+
+    s_e = ', '.join(entity)
+
+    return 'Objects: ' + s_e
+
+def sg2bbox_instance(id, triples, entity, bbox):
+
+    instance = {'id': f'identity_{id}', 'conversations': []}
+
+    query = '\n' + entity_string(entity) + '\n' + sg_string(triples)
+
+    instance['conversations'] = [{
+                "from": "human",
+                "value": system_prompt_sg2bbox() + query
+            }, {
+                "from": "gpt",
+                "value": bbox_string(entity, bbox)
+            }]
+
+    return instance, query
 
 
 

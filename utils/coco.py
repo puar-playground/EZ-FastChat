@@ -12,6 +12,7 @@ import PIL
 from skimage.transform import resize as imresize
 import pycocotools.mask as mask_utils
 import itertools
+from .sg_util import synth_relation, number_entity
 
 IMAGENET_MEAN = [0.485, 0.456, 0.406]
 IMAGENET_STD = [0.229, 0.224, 0.225]
@@ -223,44 +224,44 @@ class CocoSceneGraphDataset(Dataset):
       num_objs = len(self.image_id_to_objects[image_id])
       total_objs += num_objs
     return total_objs
-
-  def synth_relation(self, entities, boxes):
-    # Add triples
-    triples = []
-    triple_names = []
-    num_objs = len(entities)
-
-    g = list(itertools.combinations(range(num_objs), 2))
-    reverse = [1 if random.random() > 0.5 else 0 for _ in range(num_objs)]
-    pairs = [(a, b) if r == 0 else (b, a) for (r, (a, b)) in zip(reverse, random.sample(g, k=num_objs))]
-
-    for (s, o) in pairs:
-      # Check for inside / surrounding
-      sx0, sy0, sx1, sy1 = boxes[s]
-      ox0, oy0, ox1, oy1 = boxes[o]
-      d = torch.FloatTensor([0.5 * ((sx0 + sx1) - (ox0 + ox1)), 0.5 * ((sy0 + sy1) - (oy0 + oy1))])
-      theta = math.atan2(d[1], d[0])
-
-      if sx0 < ox0 and sx1 > ox1 and sy0 < oy0 and sy1 > oy1:
-        p_name = 'surrounding'
-      elif sx0 > ox0 and sx1 < ox1 and sy0 > oy0 and sy1 < oy1:
-        p_name = 'inside'
-      elif theta >= 3 * math.pi / 4 or theta <= -3 * math.pi / 4:
-        p_name = 'left of'
-      elif -3 * math.pi / 4 <= theta < -math.pi / 4:
-        p_name = 'above'
-      elif -math.pi / 4 <= theta < math.pi / 4:
-        p_name = 'right of'
-      elif math.pi / 4 <= theta < 3 * math.pi / 4:
-        p_name = 'below'
-      else:
-        p_name = None
-
-      p = self.vocab['pred_name_to_idx'][p_name]
-      triples.append([s, p, o])
-      triple_names.append([entities[s], p_name, entities[o]])
-
-    return triples, triple_names
+  #
+  # def synth_relation(self, entities, boxes):
+  #   # Add triples
+  #   triples = []
+  #   triple_names = []
+  #   num_objs = len(entities)
+  #
+  #   g = list(itertools.combinations(range(num_objs), 2))
+  #   reverse = [1 if random.random() > 0.5 else 0 for _ in range(num_objs)]
+  #   pairs = [(a, b) if r == 0 else (b, a) for (r, (a, b)) in zip(reverse, random.sample(g, k=num_objs))]
+  #
+  #   for (s, o) in pairs:
+  #     # Check for inside / surrounding
+  #     sx0, sy0, sx1, sy1 = boxes[s]
+  #     ox0, oy0, ox1, oy1 = boxes[o]
+  #     d = torch.FloatTensor([0.5 * ((sx0 + sx1) - (ox0 + ox1)), 0.5 * ((sy0 + sy1) - (oy0 + oy1))])
+  #     theta = math.atan2(d[1], d[0])
+  #
+  #     if sx0 < ox0 and sx1 > ox1 and sy0 < oy0 and sy1 > oy1:
+  #       p_name = 'surrounding'
+  #     elif sx0 > ox0 and sx1 < ox1 and sy0 > oy0 and sy1 < oy1:
+  #       p_name = 'inside'
+  #     elif theta >= 3 * math.pi / 4 or theta <= -3 * math.pi / 4:
+  #       p_name = 'left of'
+  #     elif -3 * math.pi / 4 <= theta < -math.pi / 4:
+  #       p_name = 'above'
+  #     elif -math.pi / 4 <= theta < math.pi / 4:
+  #       p_name = 'right of'
+  #     elif math.pi / 4 <= theta < 3 * math.pi / 4:
+  #       p_name = 'below'
+  #     else:
+  #       p_name = None
+  #
+  #     p = self.vocab['pred_name_to_idx'][p_name]
+  #     triples.append([s, p, o])
+  #     triple_names.append([entities[s], p_name, entities[o]])
+  #
+  #   return triples, triple_names
 
   def __len__(self):
     if self.max_samples is None:
@@ -307,13 +308,15 @@ class CocoSceneGraphDataset(Dataset):
     # boxes.append(torch.FloatTensor([0, 0, 1, 1]))
     # masks.append(torch.ones(self.mask_size, self.mask_size).long())
     obj_names = [self.vocab['object_idx_to_name'][x] for x in objs if x != __image__]
+    obj_names = number_entity(obj_names)
+
     # print('obj_names', obj_names, 'objs', objs)
 
     objs = torch.LongTensor(objs)
     boxes = torch.stack(boxes, dim=0)
     # masks = torch.stack(masks, dim=0)
 
-    triples, triple_names = self.synth_relation(obj_names, boxes)
+    triples, triple_names = synth_relation(obj_names, boxes, self.vocab['pred_name_to_idx'])
     # print('triple_names', triple_names)
 
     # # Add __in_image__ triples
@@ -323,11 +326,10 @@ class CocoSceneGraphDataset(Dataset):
     #   triples.append([i, in_image, O - 1])
     
     triples = torch.LongTensor(triples)
-    objs_names = [self.vocab['object_idx_to_name'][x] for x in objs]
 
     cap = self.captions[image_id]
 
-    return objs, objs_names, boxes, triples, triple_names, (WW, HH), image_id, cap
+    return objs, obj_names, boxes, triples, triple_names, (WW, HH), image_id, cap
 
 def seg_to_mask(seg, width=1.0, height=1.0):
   """

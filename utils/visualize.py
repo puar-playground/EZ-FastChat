@@ -27,7 +27,7 @@ def show_layout(bbox_list, tag_list, size=None, save_dir='./plot', background=No
 
     draw = ImageDraw.ImageDraw(background)
 
-    font = ImageFont.truetype('./assets/arial.ttf', 16)
+    font = ImageFont.truetype('./assets/arial.ttf', 12)
 
     for bbox, tag in zip(bbox_list, tag_list):
         l, t, r, b = bbox
