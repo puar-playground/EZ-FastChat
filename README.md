@@ -54,7 +54,7 @@ python3 -m fastchat.serve.cli --model-path /dir/to/checkpoint
 ```
 Get reply for a list of queries
 ```
-python test.py
+python test.py --model-path "absolute/path/to/checkpoints"
 ```
 
 ## 4. Data
