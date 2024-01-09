@@ -32,7 +32,7 @@ python preprocess_vg.py
 ```
 
 ## 3. BLIP-LAION-CC-558k
-Install `huggingface-cli` following the [tutorial](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli) or below,
+Install `huggingface-cli` following the [offical tutorial](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli) or below,
 ```
 pip install -U "huggingface_hub[cli]"
 ```
@@ -45,4 +45,4 @@ Download from huggingface
 ```
 huggingface-cli download liuhaotian/LLaVA-Pretrain --repo-type dataset --local-dir .
 ```
-The files will be downloaded to the cache directory, and symbolic links will be created in the local directory. The files can be read using the command `cat foo file.json`.
+The files will be downloaded to the cache directory, and symbolic links will be created in the local directory. The files can be read using the command `cat foo file.json`. Find cache dir by `ls -l`
