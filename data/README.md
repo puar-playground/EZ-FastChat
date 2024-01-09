@@ -43,5 +43,6 @@ huggingface-cli login
 
 Download from huggingface
 ```
-huggingface-cli download liuhaotian/LLaVA-Pretrain --repo-type dataset --local-dir . --local_dir_use_symlinks=False
+huggingface-cli download liuhaotian/LLaVA-Pretrain --repo-type dataset --local-dir .
 ```
+The files will be downloaded to the cache directory, and symbolic links will be created in the local directory. The files can be read using the command `cat foo file.json`.
