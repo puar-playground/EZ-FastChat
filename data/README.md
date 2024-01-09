@@ -32,7 +32,7 @@ python preprocess_vg.py
 ```
 
 ## 3. BLIP laion cc 558k
-Install `huggingface-cli` by
+Install `huggingface-cli` following the [tutorial](https://huggingface.co/docs/huggingface_hub/main/en/guides/cli) or below,
 ```
 pip install -U "huggingface_hub[cli]"
 ```
