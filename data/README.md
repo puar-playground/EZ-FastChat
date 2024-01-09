@@ -41,7 +41,7 @@ Login using an Access [Tokens](https://huggingface.co/settings/tokens):
 huggingface-cli login
 ```
 
-download from huggingface
+Download from huggingface
 ```
 huggingface-cli download liuhaotian/LLaVA-Pretrain --repo-type dataset --local-dir .
 ```
