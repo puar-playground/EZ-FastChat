@@ -43,5 +43,5 @@ huggingface-cli login
 
 download from huggingface
 ```
-huggingface-cli download liuhaotian/LLaVA-Pretrain --local-dir . --repo-type dataset
+huggingface-cli download liuhaotian/LLaVA-Pretrain --repo-type dataset --local-dir .
 ```
