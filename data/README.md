@@ -30,3 +30,18 @@ After downloading the Visual Genome dataset, use the python script `preprocess_v
 ```
 python preprocess_vg.py
 ```
+
+## 3. BLIP laion cc 558k
+Install `huggingface-cli` by
+```
+pip install -U "huggingface_hub[cli]"
+```
+Login using an Access [Tokens](https://huggingface.co/settings/tokens):
+```
+huggingface-cli login
+```
+
+download from huggingface
+```
+huggingface-cli download liuhaotian/LLaVA-Pretrain --local-dir . --repo-type dataset
+```
